@@ -1,18 +1,21 @@
+import { useState } from 'react';
+
 import Navbar from './components/Navbar';
 import Events from './components/Events';
 import './App.css'
 
 function App() {
-  const handleSearch = (evt, search) => {
-    if (evt.key === 'Enter') {
-      alert(`Buscando ${search}`);
-    }
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleNavbarSearch = (term) => {
+    setSearchTerm(term);
   };
 
   return (
     <>
-      <Navbar onSearch={handleSearch} />
-      <Events />
+      <Navbar onSearch={handleNavbarSearch} />
+      <Events searchTerm={searchTerm} />
+      
     </>
   )
 }
