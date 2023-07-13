@@ -1,3 +1,7 @@
+import styles from './EventItem.module.css';
+
+console.log(styles);
+
 const EventItem = ({ info, id, name, image, onEventClick }) => {
     
     const handleSeeMoreClick = (evt) => {
@@ -6,11 +10,13 @@ const EventItem = ({ info, id, name, image, onEventClick }) => {
     };
     
     return (
-        <div onClick={() => console.log('padre clickeado')}>
+        <div onClick={() => console.log('padre clickeado')} className={`${styles.eventItemContainer} ${styles.anotherContainer}`}>
             <img src={image} alt={name} width={200} height={200} />
-            <h4>{name}</h4>
-            <p>{info}</p>
-            <button onClick={handleSeeMoreClick}>Ver mas</button>
+            <div className={styles.eventInfoContainer}>
+                <h4 className={styles.eventName}>{name}</h4>
+                <p className={styles.eventInfo}>{info}</p>
+                <button onClick={handleSeeMoreClick} className={styles.seeMoreBtn}>Ver mas</button>
+            </div>
         </div>
     );
 };
