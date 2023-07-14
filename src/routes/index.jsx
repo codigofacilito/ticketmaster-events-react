@@ -11,12 +11,12 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Home />,
-        errorElement: <Error404 />
+        errorElement: <Error404 />,
     },
     {
-        path: '/detail',
+        path: '/detail/:eventId',
         element: <Detail />
-    }
+    },
 ]);
 
 const MyRoutes = () => <RouterProvider router={router} />;
