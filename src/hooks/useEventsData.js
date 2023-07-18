@@ -17,9 +17,11 @@ const useEventsData = () => {
         }
     };
  
+    console.log(data);
 
     return {
         events: data?._embedded?.events || [],
+        page: data?.page || {},
         isLoading,
         error,
         fetchEvents,
