@@ -3,11 +3,14 @@ import ReactPaginate from 'react-paginate';
 
 import Navbar from '../../components/Navbar';
 import Events from '../../components/Events';
-import useEventsData from '../../hooks/useEventsData';
+import useEventsResults from '../../state/events-results';
 import styles from './Home.module.css';
 
 const Home = () => {
-    const { events, isLoading, error, fetchEvents, page } = useEventsData();
+    const { data, isLoading, error, fetchEvents } = useEventsResults();
+    const events = data?._embedded?.events || [];
+    const page = data?.page || {};
+
     const [searchTerm, setSearchTerm] = useState('');
     const containerRef = useRef();
 

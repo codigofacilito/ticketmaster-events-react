@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+// Hook para hacer una llamada a la API y guardarlo en tu estado local
 const useEventsData = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
