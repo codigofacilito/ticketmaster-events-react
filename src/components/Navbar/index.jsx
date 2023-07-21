@@ -5,15 +5,15 @@ const Navbar = forwardRef(({ onSearch }, ref) => {
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        console.log('onSearch cambio');
+        // console.log('onSearch cambio');
     }, [onSearch]);
 
     useEffect(() => {
-        console.log('Componente listo');
+        // console.log('Componente listo');
     }, []);
 
     useEffect(() => {
-        console.log('search cambio');
+        // console.log('search cambio');
     }, [search]);
 
     useImperativeHandle(ref, () => ({

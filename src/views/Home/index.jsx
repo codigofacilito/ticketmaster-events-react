@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import Navbar from '../../components/Navbar';
@@ -8,14 +8,18 @@ import styles from './Home.module.css';
 
 const Home = () => {
     const { data, isLoading, error, fetchEvents } = useEventsResults();
-    const events = data?._embedded?.events || [];
-    const page = data?.page || {};
+    const events = useMemo(() => data?._embedded?.events || [], [data?._embedded?.events]);
+    const page = useMemo(() => data?.page || {}, [data?.page]);
+    const [isToggle, setIsToggle] = useState(false);
 
     const [searchTerm, setSearchTerm] = useState('');
     const containerRef = useRef();
+    const fetchMyEventsRef = useRef();
+
+    fetchMyEventsRef.current = fetchEvents;
 
     useEffect(() => {
-        fetchEvents();
+        fetchMyEventsRef.current();
     }, []);
 
     const handleNavbarSearch = (term) => {
@@ -23,9 +27,9 @@ const Home = () => {
         fetchEvents(`&keyword=${term}`);
     };
 
-    const handlePageClick = ({ selected }) => {
+    const handlePageClick = useCallback(({ selected }) => {
         fetchEvents(`&keyword=${searchTerm}&page=${selected}`);
-    };
+    }, [searchTerm, fetchEvents]);
 
     const renderEvents = () => {
         if (isLoading) {
@@ -38,6 +42,7 @@ const Home = () => {
 
         return (
             <div>
+                <button onClick={() => setIsToggle(!isToggle)}>{isToggle ? 'ON' : 'OFF'}</button>
                 <Events searchTerm={searchTerm} events={events} />
                 <ReactPaginate
                     className={styles.pagination}
